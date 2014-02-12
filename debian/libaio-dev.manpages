@@ -1,9 +1,9 @@
-man/io.3
 man/io_fsync.3
-man/io_prep_*.3
-man/io_queue_*.3
-man/io_set_*.3
-man/aio.3
-man/aio_init.3
-man/aio*64.3
-man/lio*.3
+man/io_prep_fsync.3
+man/io_prep_pread.3
+man/io_prep_pwrite.3
+man/io_queue_init.3
+man/io_queue_release.3
+man/io_queue_run.3
+man/io_queue_wait.3
+man/io_set_callback.3

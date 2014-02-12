@@ -4,32 +4,27 @@
 #export DH_VERBOSE=1
 
 DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
-CFLAGS = -Wall -g
-
-ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -O0
-else
-	CFLAGS += -O2
-endif
+CPPFLAGS = $(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS = $(shell dpkg-buildflags --get CFLAGS) -Wall
+LDFLAGS = $(shell dpkg-buildflags --get LDFLAGS)
 
 lib := libaio1
 libdbg := $(lib)-dbg
 libudeb := $(lib)-udeb
 libdev := libaio-dev
 
-include /usr/share/quilt/quilt.make
-
 build-indep:
 
-build-arch: patch
+build-arch:
 	dh_testdir
 	
-	$(MAKE)
+	$(MAKE) CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
 
 build: build-indep build-arch
 
-clean: unpatch
+clean:
 	dh_testdir
 	dh_testroot
 	
@@ -41,7 +36,8 @@ check-arch: build-arch
 	dh_testdir
 	
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	$(MAKE) partcheck
+	$(MAKE) CPPFLAGS="$(CPPFLAGS)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" \
+	        partcheck
 endif
 
 install-arch: check-arch
@@ -52,7 +48,8 @@ install-arch: check-arch
 	
 	$(MAKE) install \
 	  DESTDIR=$(CURDIR)/debian/tmp \
-	  libdir=/lib
+	  libdir=/lib/$(DEB_HOST_MULTIARCH) \
+	  libdevdir=/usr/lib/$(DEB_HOST_MULTIARCH)
 
 binary: binary-indep binary-arch
 
@@ -81,4 +78,3 @@ binary-arch: install-arch
 
 .PHONY: clean build-indep build-arch build 
 .PHONY: install-arch binary-indep binary-arch binary
-

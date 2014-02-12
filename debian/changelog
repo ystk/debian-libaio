@@ -1,3 +1,58 @@
+libaio (0.3.109-3) unstable; urgency=low
+
+  * Escape backslash in man pages. (Closes: #651833)
+    Thanks to Stephan Springl <springl-libaio@bfw-online.de>.
+  * Do not install man pages now provided by manpages-dev. (Closes: #650108)
+  * Use dpkg-buildflags to set CPPFLAGS, CFLAGS and LDFLAGS.
+  * Now using Standards-Version 3.9.3 (no changes needed).
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 21 Jun 2012 09:21:59 +0200
+
+libaio (0.3.109-2) unstable; urgency=low
+
+  * Add a symbols file for libaio1.
+  * Remove heading ‘./’ from lintian-override tag.
+  * Fix FTBFS with newer gcc 4.6: (Closes: #638848)
+    - Do not build the test-suite with -Werror.
+    - Use unused waitpid() return code variables to assert valid values.
+  * Make shared library packages multiarch:
+    - Build-Depend on debhelper 8.1.3.
+    - Add misc:Pre-Depends substvar to Pre-Depends field in libaio1.
+    - Add “Multi-Arch: same” field to libaio1 and libaio1-dbg.
+    - Change paths from lib/ to lib/* in install and lintian-override files.
+    - Define DEB_HOST_MULTIARCH and use it to set libdir and libdevdir.
+  * Install all libaio io*.3 man pages. (Closes: #418048)
+  * Do not install man pages for functions coming from libc, the aio*
+    and lio_listio* man pages are already shipped by manpages-dev.
+  * Merge adapted changes from Ubuntu. (Closes: #588112)
+    - Change Priority from extra to optional.
+    - Add support for sparc64 and hppa 64-bit architectures.
+  * Set libaio1-dbg Priority back to extra.
+  * Now using Standards-Version 3.9.2 (no changes needed).
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 30 Aug 2011 16:54:22 +0200
+
+libaio (0.3.109-1) unstable; urgency=low
+
+  * New upstream release.
+    - Refresh patches.
+  * Switch to source format “3.0 (quilt)”:
+    - Remove quilt from Build-Depends.
+    - Remove quilt.make include from debian/rules.
+    - Remove patch and unpatch targets from debian/rules.
+    - Remove now unneeded debian/README.source.
+  * Update watch file to point to the new upstream URL at kernel.org.
+  * Now using Standards-Version 3.9.1 (no changes needed).
+  * Add missing ${misc:Depends} to eveyr package Depends fields.
+  * Switch Architecture field list to just linux-any, and although the
+    code will not automatically support new Linux architectures, as it
+    will miss the syscall-<arch>.h header support among others, it just
+    needs to be ported, and this way it's easier to spot. This implicitly
+    adds amrhf support. (Closes: #596996)
+  * Add a Homepage field. (Closes: #566338)
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 27 Feb 2011 05:22:27 +0100
+
 libaio (0.3.107-7) unstable; urgency=low
 
   * Add support for sh3 and sh4. (Closes: #535288)
@@ -198,4 +253,3 @@ libaio (0.3.104-1) unstable; urgency=low
   * Initial Release.
 
  -- William Lee Irwin III <wli@holomorphy.com>  Fri, 22 Apr 2005 14:49:28 -0700
-
