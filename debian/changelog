@@ -1,3 +1,18 @@
+libaio (0.3.109-4) unstable; urgency=low
+
+  * Now using Standards-Version 3.9.4 (no changes needed).
+  * Remove package creation information from debian/copyright.
+  * Update upstream git URL in debian/copyright.
+  * Add support for x32 (from the Yocto project). (Closes: #702183)
+    Thanks to Daniel Schepler <dschepler@gmail.com>.
+  * Add support for arm64 (stolen from upstream). (Closes: #702409)
+    Thanks to Ian Campbell <ijc@hellion.org.uk>.
+  * Add cross-compilation support.
+    Based on a patch by Ian Campbell <ijc@hellion.org.uk>.
+  * Update debian/watch file to a working URL.
+
+ -- Guillem Jover <guillem@debian.org>  Mon, 06 May 2013 18:56:19 +0200
+
 libaio (0.3.109-3) unstable; urgency=low
 
   * Escape backslash in man pages. (Closes: #651833)
